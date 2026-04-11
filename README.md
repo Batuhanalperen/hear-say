@@ -1,4 +1,7 @@
-# hear-say
+# HearSay
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Python 3.10](https://img.shields.io/badge/python-3.10-blue.svg)](https://www.python.org/downloads/release/python-3100/)
+[![CUDA Ready](https://img.shields.io/badge/CUDA-Enabled-green.svg)](https://developer.nvidia.com/cuda-zone)
 
 Turn any audio into piano sheet music. Upload an MP3, get back a MIDI file, a
 Synthesia-style falling-notes player, real A4 sheet music, and grand-piano
