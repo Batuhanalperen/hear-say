@@ -1,0 +1,48 @@
+# Git / CI
+.git
+.github
+.gitignore
+
+# IDE / editor
+.vscode
+.idea
+.claude
+
+# Python artifacts
+**/__pycache__
+**/*.pyc
+**/*.pyo
+**/.venv
+**/venv
+**/.pytest_cache
+**/*.egg-info
+**/.ruff_cache
+
+# Node artifacts
+**/node_modules
+**/.nuxt
+**/.output
+**/.nitro
+**/.cache
+
+# Application data (user-generated)
+backend/data
+backend/outputs
+backend/tests/fixtures
+data
+outputs
+
+# Docker meta (keep context clean)
+docker-compose*.yml
+docker-compose*.yaml
+**/Dockerfile*
+.dockerignore
+
+# Docs
+*.md
+LICENSE
+
+# OS
+**/.DS_Store
+**/Thumbs.db
+*.log

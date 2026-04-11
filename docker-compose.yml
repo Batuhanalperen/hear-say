@@ -1,0 +1,34 @@
+services:
+  hear-say:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    container_name: hear-say
+    restart: unless-stopped
+
+    ports:
+      - "127.0.0.1:7777:7777"
+
+    volumes:
+      - ./data:/data
+
+    # NVIDIA GPU passthrough (requires NVIDIA Container Toolkit on Linux,
+    # or Docker Desktop with GPU support on Windows)
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+
+    environment:
+      - HEAR_SAY_DEVICE=cuda
+      - HEAR_SAY_DATA_DIR=/data
+
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://localhost:7777/api/health"]
+      interval: 30s
+      timeout: 5s
+      start_period: 120s
+      retries: 3

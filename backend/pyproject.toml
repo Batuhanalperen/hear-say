@@ -1,0 +1,59 @@
+[project]
+name = "hear-say"
+version = "0.1.0"
+description = "Audio to piano MIDI transcription using ByteDance Piano Transcription and Demucs"
+requires-python = ">=3.10,<3.12"
+license = { text = "MIT" }
+authors = [{ name = "batuhanalperen" }]
+keywords = ["music", "transcription", "piano", "midi", "ai", "source-separation"]
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3.10",
+    "Topic :: Multimedia :: Sound/Audio :: Analysis",
+]
+dependencies = [
+    # NumPy 1.x pin — safety net for older wheels in the dependency tree
+    "numpy<2",
+    # Piano transcription: ByteDance, Maestro-trained SOTA model
+    "piano_transcription_inference>=0.0.5",
+    # Source separation cascade:
+    #   1) audio-separator (UVR community models, BS-Roformer vocal isolation)
+    #   2) Demucs htdemucs_6s (6-stem separation, piano as its own stem)
+    "audio-separator[gpu]>=0.28.0",
+    "demucs>=4.0.0",
+    # MIDI & scoring
+    "music21>=9.1.0",
+    "pretty_midi>=0.2.10",
+    "librosa>=0.10.0",
+    "soundfile>=0.12.1",
+    "scipy>=1.10.0",
+    # CLI
+    "typer>=0.12.0",
+    "rich>=13.7.0",
+]
+
+[project.optional-dependencies]
+backend = [
+    "fastapi>=0.110.0",
+    "uvicorn[standard]>=0.27.0",
+    "sqlmodel>=0.0.16",
+    "python-multipart>=0.0.9",
+]
+dev = [
+    "ruff>=0.3.0",
+    "pytest>=8.0.0",
+]
+
+[project.scripts]
+hear-say = "hear_say.cli:app"
+
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["hear_say*"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"

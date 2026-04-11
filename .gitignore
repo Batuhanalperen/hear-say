@@ -1,0 +1,48 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv/
+venv/
+env/
+build/
+dist/
+*.egg-info/
+*.egg
+
+# Data & generated outputs
+backend/data/
+backend/outputs/
+backend/tests/fixtures/*.mp3
+backend/tests/fixtures/*.wav
+backend/tests/fixtures/*.flac
+backend/tests/fixtures/*.ogg
+data/
+*.db
+*.db-journal
+
+# Model caches
+.cache/
+pretrained_models/
+
+# IDE / editor
+.vscode/
+.idea/
+.claude/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Node / frontend
+node_modules/
+.nuxt/
+.output/
+.nitro/
