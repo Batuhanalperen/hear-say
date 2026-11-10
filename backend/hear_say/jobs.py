@@ -13,7 +13,7 @@ Pipeline:
 from __future__ import annotations
 
 import traceback
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
 
 import pretty_midi
@@ -62,7 +62,7 @@ def _update_song(
         song.levels = levels
     if duration_seconds is not None:
         song.duration_seconds = duration_seconds
-    song.updated_at = datetime.utcnow()
+    song.updated_at = datetime.now(timezone.utc)
     session.add(song)
     session.commit()
     session.refresh(song)
