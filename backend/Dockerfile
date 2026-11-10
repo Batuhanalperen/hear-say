@@ -55,14 +55,17 @@ RUN --mount=type=cache,id=pip,target=/root/.cache/pip \
 
 # PyTorch CUDA 12.1 wheels (large download; dedicated layer for caching)
 RUN --mount=type=cache,id=pip,target=/root/.cache/pip \
-    pip install torch torchaudio \
+    pip install torch torchaudio torchvision \
         --index-url https://download.pytorch.org/whl/cu121
 
 COPY backend/pyproject.toml ./
 COPY backend/hear_say ./hear_say
 
+# Pin the CUDA torch trio so transitive deps (e.g. onnx2torch -> torchvision)
+# cannot pull a newer CPU/PyPI torch that breaks torchaudio's native lib.
 RUN --mount=type=cache,id=pip,target=/root/.cache/pip \
-    pip install -e ".[backend]"
+    pip freeze | grep -E '^torch(audio|vision)?==' > /tmp/torch-constraints.txt \
+    && pip install -e ".[backend]" -c /tmp/torch-constraints.txt
 
 # Pre-download model weights at build time so the first request does not wait.
 # device='cpu' lets us initialise on build machines without a GPU; weights are
